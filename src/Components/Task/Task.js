@@ -1,5 +1,6 @@
 import React from "react";
-import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { PropTypes } from "prop-types";
 import "./Task.css"
 
 const Task = ( props ) => {
@@ -61,6 +62,42 @@ const Task = ( props ) => {
                 : null }
         </li>
     )
+}
+Task.defaultProps = {
+    task: {
+        id: 0,
+        type: "view",
+        description: "Loading",
+        time: {
+            year: 2023,
+            month: 1,
+            date: 10,
+            hours: 12,
+            minutes: 12,
+            seconds: 12
+        }
+    },
+    onTypeChange: () => {},
+    onDeleted: () => {},
+    onEdited: () => {}
+}
+Task.propTypes = {
+    task: PropTypes.shape({
+        id: PropTypes.number,
+        type: PropTypes.string,
+        description: PropTypes.string,
+        time:PropTypes.shape( {
+            year: PropTypes.number,
+            month: PropTypes.number,
+            date: PropTypes.number,
+            hours: PropTypes.number,
+            minutes: PropTypes.number,
+            seconds: PropTypes.number
+        })
+    }),
+    onTypeChange: PropTypes.func,
+    onDeleted: PropTypes.func,
+    onEdited: PropTypes.func
 }
 
 export default Task;

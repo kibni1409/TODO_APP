@@ -1,6 +1,7 @@
 import Task from "../Task/Task";
 import React from "react";
-import "./TaskList.css"
+import "./TaskList.css";
+import { PropTypes } from "prop-types";
 
 const TaskList = ( props ) => {
 
@@ -8,6 +9,7 @@ const TaskList = ( props ) => {
 
     let ElementsTasks
 
+    // eslint-disable-next-line default-case
     switch (typeSort.name){
         case("All"):
              ElementsTasks = props.Tasks.map( el => el)
@@ -34,6 +36,34 @@ const TaskList = ( props ) => {
             { NewElementsTasks }
         </ul>
     </div>
+}
+
+TaskList.propTypes = {
+    Tasks: PropTypes.arrayOf(PropTypes.object),
+    onTypeChange: PropTypes.func,
+    onDeleted: PropTypes.func,
+    onEdited: PropTypes.func,
+    Sort: PropTypes.arrayOf(PropTypes.object)
+}
+
+TaskList.defaultProps = {
+    Tasks: [ {
+        id: 0,
+        type: "view",
+        description: "Loading",
+        time: {
+            year: 2023,
+            month: 1,
+            date: 10,
+            hours: 13,
+            minutes: 49,
+            seconds: 15
+        }
+    }],
+    onTypeChange: () => {},
+    onDeleted: () => {},
+    onEdited: () => {},
+    Sort: [{ name: "All", active: true }]
 }
 
 

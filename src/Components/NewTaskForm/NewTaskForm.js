@@ -1,5 +1,6 @@
 import React from "react";
 import "./NewTaskForm.css"
+import {PropTypes} from "prop-types";
 const NewTaskForm = ( props ) => {
     function keyDown ( e ) {
         if ( e.key === "Enter" ){
@@ -19,6 +20,14 @@ const NewTaskForm = ( props ) => {
             </input>
         </header>
     )
+}
+
+NewTaskForm.defaultProps = {
+    addTask: () => {}
+}
+
+NewTaskForm.propTypes = {
+    addTask: PropTypes.func
 }
 
 export default NewTaskForm;

@@ -1,5 +1,6 @@
 import React from "react";
 import "./TaskFilter.css"
+import {PropTypes} from "prop-types";
 function TasksFilter ( props ) {
 
     const onChange = (e) =>{
@@ -17,6 +18,16 @@ function TasksFilter ( props ) {
             { sortElement }
         </ul>
     )
+}
+
+TasksFilter.defaultProps = {
+    Sort: [{ name:"All", active: true }] ,
+    sortChange: () => {}
+}
+
+TasksFilter.propTypes = {
+    Sort: PropTypes.array,
+    sortChange: PropTypes.func
 }
 
 export default TasksFilter;
