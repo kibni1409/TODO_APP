@@ -2,59 +2,39 @@ import Task from "../Task/Task";
 import React from "react";
 import "./TaskList.css"
 
-class TaskList extends React.Component {
+const TaskList = ( props ) => {
 
-    state = {
-        Tasks: [
-            {id: 0, type: "completed", description: "Completed task"},
-            {id: 1, type: "editing", description: "Editing task"},
-            {id: 2, type: "view", description: "Completed task"},
-        ]
+    let typeSort = props.Sort.find( el => el.active === true )
+
+    let ElementsTasks
+
+    switch (typeSort.name){
+        case("All"):
+             ElementsTasks = props.Tasks.map( el => el)
+            break
+        case("Active"):
+             ElementsTasks = props.Tasks.filter( el =>el.type === "view")
+            break
+        case("Completed"):
+            ElementsTasks = props.Tasks.filter( el => el.type === "completed")
     }
 
-    onEdited = ( id, type ) => {
-        this.setState(( { Tasks } ) => {
-            const res = Tasks.map( el => el.id === id
-            ? el.type = type
-            : el.type )
+    let NewElementsTasks = ElementsTasks.map( el =>
+        <Task
+            task={el}
+            key={el.id}
+            onTypeChange={props.onTypeChange}
+            onDeleted={props.onDeleted}
+            onEdited={props.onEdited}
+        />
+    )
 
-            return {
-                ...res,
-            }
-        } )
-    }
-
-    onDeleted = ( id ) => {
-        this.setState(( { Tasks } ) => {
-            const idx = Tasks.findIndex( el => el.id === id )
-
-            const res = [
-                ...Tasks.slice( 0, idx ),
-                ...Tasks.slice( idx + 1 )
-            ]
-
-            return {
-                Tasks: res
-            }
-        } )
-    }
-
-    render() {
-        return <div>
-            <ul className="todoList">
-                {this.state.Tasks.map( el =>
-                    <Task
-                        id={ el.id }
-                        key={ el.id }
-                        type={ el.type }
-                        description={ el.description }
-                        onEdited={ this.onEdited }
-                        onDeleted={ this.onDeleted }
-                    /> )
-                }
-            </ul>
-        </div>
-    }
+    return <div>
+        <ul className="todoList">
+            { NewElementsTasks }
+        </ul>
+    </div>
 }
+
 
 export default TaskList;
