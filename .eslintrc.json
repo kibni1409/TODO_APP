@@ -29,8 +29,7 @@
   ],
   "rules": {
     "indent": [
-      "error",
-      2
+      "off"
     ],
     "prettier/prettier": "error",
     "linebreak-style": [
@@ -71,7 +70,9 @@
           "internal",
           "parent",
           "sibling",
-          "index"
+          "index",
+          "object",
+          "type"
         ],
         "newlines-between": "always"
       }

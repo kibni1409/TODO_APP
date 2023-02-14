@@ -1,61 +1,66 @@
+import React from 'react'
+
 import NewTaskForm from './Components/NewTaskForm/NewTaskForm'
 import TaskList from './Components/TaskList/TaskList'
 import Footer from './Components/Footer/Footer'
+
 import './App.css'
-import React from 'react'
 
 class App extends React.Component {
-  state = {
-    Tasks: [
-      {
-        id: 0,
-        type: 'completed',
-        description: 'Completed task',
-        time: {
-          year: 2023,
-          month: 1,
-          date: 10,
-          hours: 13,
-          minutes: 49,
-          seconds: 15,
+  constructor(props) {
+    super(props)
+    this.state = {
+      Tasks: [
+        {
+          id: 0,
+          type: 'completed',
+          description: 'Completed task',
+          time: {
+            year: 2023,
+            month: 1,
+            date: 10,
+            hours: 13,
+            minutes: 49,
+            seconds: 15,
+          },
         },
-      },
-      {
-        id: 1,
-        type: 'view',
-        description: 'Editing task',
-        time: {
-          year: 2023,
-          month: 1,
-          date: 5,
-          hours: 13,
-          minutes: 49,
-          seconds: 15,
+        {
+          id: 1,
+          type: 'view',
+          description: 'Editing task',
+          time: {
+            year: 2023,
+            month: 1,
+            date: 5,
+            hours: 13,
+            minutes: 49,
+            seconds: 15,
+          },
         },
-      },
-      {
-        id: 2,
-        type: 'view',
-        description: 'Completed task',
-        time: {
-          year: 2023,
-          month: 1,
-          date: 9,
-          hours: 13,
-          minutes: 49,
-          seconds: 15,
+        {
+          id: 2,
+          type: 'view',
+          description: 'Completed task',
+          time: {
+            year: 2023,
+            month: 1,
+            date: 9,
+            hours: 13,
+            minutes: 49,
+            seconds: 15,
+          },
         },
-      },
-    ],
-    idTasks: 3,
-    Sort: [
-      { name: 'All', active: true },
-      { name: 'Active', active: false },
-      { name: 'Completed', active: false },
-    ],
+      ],
+      idTasks: 3,
+      Sort: [
+        { name: 'All', active: true },
+        { name: 'Active', active: false },
+        { name: 'Completed', active: false },
+      ],
+    }
   }
 
-  onTypeChange = (id, type) => {
+  onTypeChange(id, type) {
     this.setState(({ Tasks }) => {
       const res = Tasks.map((el) => (el.id === id ? (el.type = type) : el.type))
 
@@ -65,7 +70,7 @@ class App extends React.Component {
     })
   }
 
-  onEdited = (id, message) => {
+  onEdited(id, message) {
     this.setState(({ Tasks }) => {
       const res = Tasks.map((el) => (el.id === id ? (el.description = message) : el.description))
 
@@ -75,7 +80,7 @@ class App extends React.Component {
     })
   }
 
-  onDeleted = (id) => {
+  onDeleted(id) {
     this.setState(({ Tasks }) => {
       const idx = Tasks.findIndex((el) => el.id === id)
 
@@ -87,7 +92,7 @@ class App extends React.Component {
     })
   }
 
-  addTask = (message) => {
+  addTask(message) {
     this.setState(({ Tasks }) => {
       let data = new Date()
       let newTime = {
@@ -116,7 +121,7 @@ class App extends React.Component {
     })
   }
 
-  sortChange = (name) => {
+  sortChange(name) {
     this.setState(({ Sort }) => {
       const res = Sort.map((el) => (el.name === name ? (el.active = true) : (el.active = false)))
 
@@ -126,7 +131,7 @@ class App extends React.Component {
     })
   }
 
-  clearCompleted = () => {
+  clearCompleted() {
     this.setState(({ Tasks }) => {
       let res = []
       Tasks.map((el) => (el.type !== 'completed' ? res.push(el) : null))
