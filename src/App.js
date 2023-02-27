@@ -58,6 +58,13 @@ class App extends React.Component {
         { name: 'Completed', active: false },
       ],
     }
+
+    this.onTypeChange = this.onTypeChange.bind(this)
+    this.onEdited = this.onEdited.bind(this)
+    this.onDeleted = this.onDeleted.bind(this)
+    this.addTask = this.addTask.bind(this)
+    this.sortChange = this.sortChange.bind(this)
+    this.clearCompleted = this.clearCompleted.bind(this)
   }
 
   onTypeChange(id, type) {
