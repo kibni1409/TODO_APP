@@ -21,7 +21,7 @@
 
 .todoList li.editing .edit {
     display: block;
-    width: calc(100% - 43px);
+    width: calc(100% - 122px);
     padding: 12px 16px;
     margin: 0 0 0 43px;
 }
@@ -76,12 +76,16 @@
 }
 
 .todoList li label .description {
+    width: 80%;
     word-break: break-all;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     line-height: 1.2;
     transition: color 0.4s;
     font-weight: 400;
     color: #4d4d4d;
+    margin-right: 5px;
 }
 
 .todoList li.completed label .description {

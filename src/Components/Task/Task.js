@@ -1,7 +1,9 @@
 import React from 'react'
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { PropTypes } from 'prop-types'
+
 import './Task.css'
+import Timer from '../Timer/Timer'
 
 const Task = (props) => {
   function keyDown(e) {
@@ -34,7 +36,12 @@ const Task = (props) => {
           checked={props.task.type === 'completed'}
         ></input>
         <label>
-          <span className="description">{props.task.description}</span>
+          <span className="description">
+            {props.task.description}
+            {props.task.type !== 'completed' ? (
+              <Timer timer={props.task.timer} onEditTime={props.onEditTime} task={props.task} onStart={props.onStart} />
+            ) : null}
+          </span>
           <span className="created">
             {formatDistanceToNow(
               new Date(

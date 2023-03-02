@@ -23,6 +23,8 @@ class App extends React.Component {
             minutes: 49,
             seconds: 15,
           },
+          timer: 42000,
+          start: false,
         },
         {
           id: 1,
@@ -36,6 +38,8 @@ class App extends React.Component {
             minutes: 49,
             seconds: 15,
           },
+          timer: 12000,
+          start: false,
         },
         {
           id: 2,
@@ -49,6 +53,8 @@ class App extends React.Component {
             minutes: 49,
             seconds: 15,
           },
+          timer: 12000,
+          start: false,
         },
       ],
       idTasks: 3,
@@ -65,6 +71,8 @@ class App extends React.Component {
     this.addTask = this.addTask.bind(this)
     this.sortChange = this.sortChange.bind(this)
     this.clearCompleted = this.clearCompleted.bind(this)
+    this.onEditTime = this.onEditTime.bind(this)
+    this.onStart = this.onStart.bind(this)
   }
 
   onTypeChange(id, type) {
@@ -99,7 +107,7 @@ class App extends React.Component {
     })
   }
 
-  addTask(message) {
+  addTask(task) {
     this.setState(({ Tasks }) => {
       let data = new Date()
       let newTime = {
@@ -114,13 +122,14 @@ class App extends React.Component {
       const newTask = {
         id: this.state.idTasks,
         type: 'view',
-        description: message,
+        description: task.name,
         time: newTime,
+        timer: task.min * 60000 + task.sec * 1000,
       }
+
       const res = [...Tasks]
 
       res.push(newTask)
-
       return {
         Tasks: res,
         idTasks: this.state.idTasks + 1,
@@ -148,6 +157,26 @@ class App extends React.Component {
     })
   }
 
+  onEditTime(id, time) {
+    this.setState(({ Tasks }) => {
+      const res = Tasks.map((el) => (el.id === id ? (el.timer = time) : el.timer))
+
+      return {
+        ...res,
+      }
+    })
+  }
+
+  onStart(id, bool) {
+    this.setState(({ Tasks }) => {
+      const res = Tasks.map((el) => (el.id === id ? (el.start = bool) : el.timer))
+
+      return {
+        ...res,
+      }
+    })
+  }
+
   render() {
     return (
       <div className="todoapp">
@@ -158,6 +187,8 @@ class App extends React.Component {
           onDeleted={this.onDeleted}
           onEdited={this.onEdited}
           Sort={this.state.Sort}
+          onEditTime={this.onEditTime}
+          onStart={this.onStart}
         />
         <Footer
           Sort={this.state.Sort}

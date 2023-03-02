@@ -30,6 +30,8 @@ const TaskList = (props) => {
       onTypeChange={props.onTypeChange}
       onDeleted={props.onDeleted}
       onEdited={props.onEdited}
+      onEditTime={props.onEditTime}
+      onStart={props.onStart}
     />
   ))
 
