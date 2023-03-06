@@ -8,8 +8,7 @@ import Timer from '../Timer/Timer'
 const Task = (props) => {
   function keyDown(e) {
     if (e.key === 'Enter') {
-      props.onTypeChange(props.task.id, 'view')
-      props.onEdited(props.task.id, e.target.value)
+      props.onEdited(props.task.id, e.target.value, 'view')
     }
   }
 

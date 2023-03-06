@@ -1,25 +1,25 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './TaskList.css'
 import { PropTypes } from 'prop-types'
 
 import Task from '../Task/Task'
+import { Context } from '../../App'
 
 const TaskList = (props) => {
+  let valueContext = useContext(Context)
   let typeSort = props.Sort.find((el) => el.active === true)
-
   let ElementsTasks
   switch (typeSort.name) {
     case 'All':
-      ElementsTasks = props.Tasks.map((el) => el)
+      ElementsTasks = valueContext.map((el) => el)
       break
     case 'Active':
-      ElementsTasks = props.Tasks.filter((el) => el.type === 'view')
+      ElementsTasks = valueContext.filter((el) => el.type === 'view')
       break
     case 'Completed':
-      ElementsTasks = props.Tasks.filter((el) => el.type === 'completed')
+      ElementsTasks = valueContext.filter((el) => el.type === 'completed')
       break
   }
-
   let NewElementsTasks = ElementsTasks.map((el) => (
     <Task
       task={el}
@@ -31,7 +31,6 @@ const TaskList = (props) => {
       onStart={props.onStart}
     />
   ))
-
   return (
     <div>
       <ul className="todoList">{NewElementsTasks}</ul>

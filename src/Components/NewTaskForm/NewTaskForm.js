@@ -16,6 +16,7 @@ const NewTaskForm = (props) => {
       props.addTask(taskData)
       e.preventDefault()
       e.target.reset()
+      setTaskData({})
     } else {
       let noAdd = document.createElement('p')
       noAdd.classList.add('noAdd')

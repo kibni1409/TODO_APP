@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Footer.css'
 import { PropTypes } from 'prop-types'
 
 import TasksFilter from '../TasksFilter/TasksFilter'
+import { Context } from '../../App'
 function Footer(props) {
-  let count = props.Tasks.reduce((sum, current) => (current.type === 'view' ? sum + 1 : sum + 0), 0)
+  let valueContext = useContext(Context)
+  let count = valueContext.reduce((sum, current) => (current.type === 'view' ? sum + 1 : sum + 0), 0)
   return (
     <footer className="footer">
       <span className="todo-count">{count} items left</span>
