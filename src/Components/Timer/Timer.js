@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Style from './Timer.module.css'
 
 const Timer = (props) => {
-  let value = props.timer
+  let [value, setValue] = useState(props.timer)
   let [timerID, setTimer] = useState(0)
   let [start, setStart] = useState(false)
   let timeMin = Math.floor(value / 60000)
@@ -13,7 +13,7 @@ const Timer = (props) => {
     let startID = setInterval(() => {
       props.onEditTime(props.task.id, value - 1000)
       setStart(true)
-      value -= 1000
+      setValue((v) => v - 1000)
     }, 1000)
     setTimer(startID)
   }

@@ -1,41 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PropTypes } from 'prop-types'
 
 import Style from './NewTaskForm.module.css'
+
 const NewTaskForm = (props) => {
-  let state = {}
+  const [taskData, setTaskData] = useState({
+    name: '',
+    min: 0,
+    max: 0,
+  })
+
   function handleSubmit(e) {
     e.preventDefault()
-    if (state.min && state.sec && state.name) {
-      props.addTask(state)
+    if (taskData.min && taskData.sec && taskData.name) {
+      props.addTask(taskData)
       e.preventDefault()
       e.target.reset()
-      console.log(state)
     } else {
-      console.log('no', state)
+      let noAdd = document.createElement('p')
+      noAdd.classList.add('noAdd')
+      noAdd.innerText = 'Not all fields are filled in'
+      e.target.prepend(noAdd)
     }
   }
 
   function handleInputChange(e) {
-    const target = e.target
-    const value = target.value
-    const name = target.name
-
-    parseInt(value) ? (state[name] = value / 1) : null
-    name === 'name' ? (state[name] = value) : null
-  }
-  function InputTime(props) {
-    return (
-      <input
-        className={Style.inputTime}
-        min={props.min}
-        max={props.max}
-        type="number"
-        name={props.name}
-        placeholder={props.name}
-        onChange={handleInputChange}
-      ></input>
-    )
+    let noAdd = document.querySelector('.noAdd')
+    noAdd ? noAdd.remove() : null
+    const value = e.target.value
+    const name = e.target.name
+    parseInt(value)
+      ? setTaskData((t) => {
+          return {
+            ...t,
+            [name]: value / 1,
+          }
+        })
+      : null
+    name === 'name'
+      ? setTaskData((t) => {
+          return {
+            ...t,
+            [name]: value,
+          }
+        })
+      : null
   }
 
   return (
@@ -47,13 +56,26 @@ const NewTaskForm = (props) => {
           className={Style.new_todo}
           placeholder="What needs to be done?"
           onChange={handleInputChange}
-          autoFocus
         ></input>
-        {<InputTime name="min" min={0} max={60} />}
-        {<InputTime name="sec" min={0} max={60} />}
-        <button className={Style.hidden} type="submit">
-          Submit
-        </button>
+        <input
+          name="min"
+          className={Style.inputTime}
+          min={1}
+          max={60}
+          type="number"
+          placeholder="min"
+          onChange={handleInputChange}
+        ></input>
+        <input
+          name="sec"
+          className={Style.inputTime}
+          min={1}
+          max={60}
+          type="number"
+          placeholder="sec"
+          onChange={handleInputChange}
+        ></input>
+        <button className={Style.hidden} type="submit"></button>
       </form>
     </header>
   )

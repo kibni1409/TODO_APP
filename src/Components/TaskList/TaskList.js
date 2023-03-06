@@ -1,16 +1,13 @@
-// eslint-disable-next-line import/order
-import Task from '../Task/Task'
-
 import React from 'react'
 import './TaskList.css'
 import { PropTypes } from 'prop-types'
+
+import Task from '../Task/Task'
 
 const TaskList = (props) => {
   let typeSort = props.Sort.find((el) => el.active === true)
 
   let ElementsTasks
-
-  // eslint-disable-next-line default-case
   switch (typeSort.name) {
     case 'All':
       ElementsTasks = props.Tasks.map((el) => el)
